@@ -177,18 +177,11 @@ function createVideoCard(video) {
             frameborder="0" 
             allowfullscreen>
         </iframe>
-        <div class="video-actions">
-            <button class="delete-video" onclick="deleteVideo('${video.id}')">
-                <i class="fas fa-trash"></i> Delete
-            </button>
-        </div>
     `;
     
     // Add click event to open in modal
     videoCard.addEventListener('click', (e) => {
-        if (!e.target.closest('.delete-video')) {
-            openModal(video);
-        }
+        openModal(video);
     });
     
     return videoCard;
