@@ -187,15 +187,6 @@ function createVideoCard(video) {
     return videoCard;
 }
 
-function deleteVideo(videoId) {
-    if (confirm('Are you sure you want to delete this video?')) {
-        videos = videos.filter(video => video.id !== videoId);
-        saveVideos();
-        renderVideos();
-        showNotification('Video deleted successfully!', 'success');
-    }
-}
-
 function saveVideos() {
     localStorage.setItem('animationVideos', JSON.stringify(videos));
 }
