@@ -32,51 +32,28 @@ const planetInfo = {
 // Sample videos for the portfolio
 const sampleVideos = [
     {
-        id: '1',
         week: 'Week 1 - Concept Design',
-        videoId: 'dQw4w9WgXcQ',
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        reference: 'dQw4w9WgXcQ',
+        rotoscope: 'jNQXAC9IVRw',
         addedAt: new Date('2024-01-15').toISOString()
     },
     {
-        id: '2',
         week: 'Week 2 - 3D Modeling',
-        videoId: 'jNQXAC9IVRw',
-        url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
+        reference: 'kJQP7kiw5Fk',
+        rotoscope: '9bZkp7q19f0',
         addedAt: new Date('2024-01-22').toISOString()
     },
     {
-        id: '3',
         week: 'Week 3 - Texturing',
-        videoId: 'kJQP7kiw5Fk',
-        url: 'https://www.youtube.com/watch?v=kJQP7kiw5Fk',
+        reference: 'ZZ5LpwO-An4',
+        rotoscope: 'y6120QOlsfU',
         addedAt: new Date('2024-01-29').toISOString()
-    },
-    {
-        id: '4',
-        week: 'Week 4 - Animation',
-        videoId: '9bZkp7q19f0',
-        url: 'https://www.youtube.com/watch?v=9bZkp7q19f0',
-        addedAt: new Date('2024-02-05').toISOString()
-    },
-    {
-        id: '5',
-        week: 'Week 5 - Lighting',
-        videoId: 'ZZ5LpwO-An4',
-        url: 'https://www.youtube.com/watch?v=ZZ5LpwO-An4',
-        addedAt: new Date('2024-02-12').toISOString()
-    },
-    {
-        id: '6',
-        week: 'Final Render',
-        videoId: 'y6120QOlsfU',
-        url: 'https://www.youtube.com/watch?v=y6120QOlsfU',
-        addedAt: new Date('2024-02-19').toISOString()
     }
+    // Add more weeks as needed
 ];
 
 // Video storage - initialize with sample videos
-let videos = sampleVideos; // Always use sample videos, don't load from localStorage
+let videos = sampleVideos;
 
 // Initialize DOM elements
 function initializeElements() {
@@ -164,29 +141,41 @@ function updatePlanetDescriptions(earthAge) {
 }
 
 // YouTube Video Management
-function createVideoCard(video) {
-    const videoCard = document.createElement('div');
-    videoCard.className = 'video-card';
-    videoCard.dataset.week = video.week.toLowerCase();
-    
-    videoCard.innerHTML = `
-        <div class="video-label">${video.week}</div>
+function createWeekRow(weekObj) {
+    const row = document.createElement('div');
+    row.className = 'video-week-row';
+
+    // Week label spanning both columns
+    const weekLabel = document.createElement('div');
+    weekLabel.className = 'week-label';
+    weekLabel.textContent = weekObj.week;
+    row.appendChild(weekLabel);
+
+    // Reference column
+    const refCol = document.createElement('div');
+    refCol.className = 'video-col';
+    refCol.innerHTML = `
+        <div class="video-type-label">Reference</div>
         <div class="video-iframe-wrapper">
-            <iframe 
-                class="video-iframe" 
-                src="https://www.youtube.com/embed/${video.videoId}" 
-                frameborder="0" 
-                allowfullscreen>
-            </iframe>
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/${weekObj.reference}" frameborder="0" allowfullscreen></iframe>
         </div>
     `;
-    
-    // Add click event to open in modal
-    videoCard.addEventListener('click', (e) => {
-        openModal(video);
-    });
-    
-    return videoCard;
+    refCol.addEventListener('click', () => openModal({ videoId: weekObj.reference, week: weekObj.week + ' (Reference)', addedAt: weekObj.addedAt }));
+    row.appendChild(refCol);
+
+    // Rotoscope column
+    const rotoCol = document.createElement('div');
+    rotoCol.className = 'video-col';
+    rotoCol.innerHTML = `
+        <div class="video-type-label">Rotoscope</div>
+        <div class="video-iframe-wrapper">
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/${weekObj.rotoscope}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    `;
+    rotoCol.addEventListener('click', () => openModal({ videoId: weekObj.rotoscope, week: weekObj.week + ' (Rotoscope)', addedAt: weekObj.addedAt }));
+    row.appendChild(rotoCol);
+
+    return row;
 }
 
 function renderVideos(filteredVideos = null) {
@@ -194,9 +183,9 @@ function renderVideos(filteredVideos = null) {
         console.error('Video container not found');
         return;
     }
-    
+
     const videosToRender = filteredVideos || videos;
-    
+
     if (videosToRender.length === 0) {
         videoContainer.innerHTML = `
             <div class="no-videos">
@@ -206,10 +195,10 @@ function renderVideos(filteredVideos = null) {
         `;
         return;
     }
-    
+
     videoContainer.innerHTML = '';
-    videosToRender.forEach(video => {
-        videoContainer.appendChild(createVideoCard(video));
+    videosToRender.forEach(weekObj => {
+        videoContainer.appendChild(createWeekRow(weekObj));
     });
 }
 
