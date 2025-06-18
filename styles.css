@@ -189,36 +189,12 @@ section h2 {
     transform: translateY(-2px);
 }
 
-/* Video Grid */
+/* Video Grid - Updated for two-column layout */
 .video-grid {
-    grid-template-columns: 1fr;
-    max-width: 320px;
-    margin: 2rem auto 0;
-}
-
-.video-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    max-width: 320px;
-    width: 100%;
-}
-
-.video-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
-.video-label {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .video-iframe-wrapper {
@@ -237,15 +213,7 @@ section h2 {
     border: none;
 }
 
-.video-actions {
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .no-videos {
-    grid-column: 1 / -1;
     text-align: center;
     color: white;
     padding: 3rem;
@@ -628,9 +596,7 @@ footer {
         text-align: center;
     }
     
-    .video-grid {
-        grid-template-columns: 1fr;
-    }
+    /* Mobile video grid handled by video-week-row responsive design */
     
     .tools-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

@@ -33,21 +33,33 @@ const planetInfo = {
 const sampleVideos = [
     {
         week: 'Week 1 - Concept Design',
-        reference: 'dQw4w9WgXcQ',
-        rotoscope: 'jNQXAC9IVRw',
+        reference: 'dQw4w9WgXcQ', // Rick Roll - commonly used for testing
+        rotoscope: 'jNQXAC9IVRw', // Me at the zoo - first YouTube video
         addedAt: new Date('2024-01-15').toISOString()
     },
     {
         week: 'Week 2 - 3D Modeling',
-        reference: 'kJQP7kiw5Fk',
-        rotoscope: '9bZkp7q19f0',
+        reference: 'kJQP7kiw5Fk', // Despacito - popular video
+        rotoscope: '9bZkp7q19f0', // PSY - GANGNAM STYLE
         addedAt: new Date('2024-01-22').toISOString()
     },
     {
         week: 'Week 3 - Texturing',
-        reference: 'ZZ5LpwO-An4',
-        rotoscope: 'y6120QOlsfU',
+        reference: 'ZZ5LpwO-An4', // Uptown Funk
+        rotoscope: 'y6120QOlsfU', // Sandstorm
         addedAt: new Date('2024-01-29').toISOString()
+    },
+    {
+        week: 'Week 4 - Animation',
+        reference: 'hT_nvWreIhg', // OneRepublic - Counting Stars
+        rotoscope: 'fJ9rUzIMcZQ', // Bohemian Rhapsody
+        addedAt: new Date('2024-02-05').toISOString()
+    },
+    {
+        week: 'Week 5 - Lighting',
+        reference: 'YykjpeuMNEk', // Hymn for the Weekend
+        rotoscope: '09R8_2nJtjg', // Maroon 5 - Sugar
+        addedAt: new Date('2024-02-12').toISOString()
     }
     // Add more weeks as needed
 ];
