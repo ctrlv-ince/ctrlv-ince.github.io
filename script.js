@@ -1,19 +1,7 @@
 // DOM Elements
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
-const searchInput = document.querySelector('#search-videos');
-const clearSearchBtn = document.querySelector('#clear-search');
-const videoContainer = document.querySelector('#video-container');
-const modal = document.querySelector('#modal');
-const modalVideo = document.querySelector('#modal-video');
-const modalTitle = document.querySelector('#modal-title');
-const modalDescription = document.querySelector('#modal-description');
-const closeModal = document.querySelector('.close-modal');
-
-// Age Calculator Elements
-const ageInput = document.querySelector('#age-input');
-const calculateAgeBtn = document.querySelector('#calculate-age-btn');
+let hamburger, navMenu, navLinks, searchInput, clearSearchBtn, videoContainer;
+let modal, modalVideo, modalTitle, modalDescription, closeModal;
+let ageInput, calculateAgeBtn;
 
 // Planetary year lengths in Earth days
 const planetYears = {
@@ -90,42 +78,30 @@ const sampleVideos = [
 // Video storage - initialize with sample videos
 let videos = JSON.parse(localStorage.getItem('animationVideos')) || sampleVideos;
 
-// Mobile Navigation
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
-
-// Smooth scrolling for navigation links
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-        
-        // Update active link
-        navLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-    });
-});
+// Initialize DOM elements
+function initializeElements() {
+    hamburger = document.querySelector('.hamburger');
+    navMenu = document.querySelector('.nav-menu');
+    navLinks = document.querySelectorAll('.nav-link');
+    searchInput = document.querySelector('#search-videos');
+    clearSearchBtn = document.querySelector('#clear-search');
+    videoContainer = document.querySelector('#video-container');
+    modal = document.querySelector('#modal');
+    modalVideo = document.querySelector('#modal-video');
+    modalTitle = document.querySelector('#modal-title');
+    modalDescription = document.querySelector('#modal-description');
+    closeModal = document.querySelector('.close-modal');
+    ageInput = document.querySelector('#age-input');
+    calculateAgeBtn = document.querySelector('#calculate-age-btn');
+}
 
 // Age Calculator Functionality
 function calculatePlanetaryAges() {
+    if (!ageInput) {
+        console.error('Age input element not found');
+        return;
+    }
+    
     const age = parseFloat(ageInput.value);
     
     if (!age || age < 0 || age > 150) {
@@ -232,6 +208,11 @@ function saveVideos() {
 }
 
 function renderVideos(filteredVideos = null) {
+    if (!videoContainer) {
+        console.error('Video container not found');
+        return;
+    }
+    
     const videosToRender = filteredVideos || videos;
     
     if (videosToRender.length === 0) {
@@ -252,6 +233,8 @@ function renderVideos(filteredVideos = null) {
 
 // Search functionality
 function searchVideos() {
+    if (!searchInput) return;
+    
     const searchTerm = searchInput.value.toLowerCase();
     
     if (searchTerm === '') {
@@ -268,12 +251,19 @@ function searchVideos() {
 
 // Clear search
 function clearSearch() {
-    searchInput.value = '';
-    renderVideos();
+    if (searchInput) {
+        searchInput.value = '';
+        renderVideos();
+    }
 }
 
 // Modal functionality
 function openModal(video) {
+    if (!modal || !modalVideo || !modalTitle || !modalDescription) {
+        console.error('Modal elements not found');
+        return;
+    }
+    
     modalVideo.src = `https://www.youtube.com/embed/${video.videoId}`;
     modalTitle.textContent = video.week;
     modalDescription.textContent = `Added on ${new Date(video.addedAt).toLocaleDateString()}`;
@@ -282,6 +272,8 @@ function openModal(video) {
 }
 
 function closeModalFunc() {
+    if (!modal || !modalVideo) return;
+    
     modal.style.display = 'none';
     modalVideo.src = '';
     document.body.style.overflow = 'auto';
@@ -347,34 +339,91 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Event Listeners
-searchInput.addEventListener('input', searchVideos);
-clearSearchBtn.addEventListener('click', clearSearch);
-
-// Age calculator event listeners
-calculateAgeBtn.addEventListener('click', calculatePlanetaryAges);
-
-// Allow Enter key for age calculation
-ageInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        calculatePlanetaryAges();
+// Setup event listeners
+function setupEventListeners() {
+    // Mobile Navigation
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            if (navMenu) navMenu.classList.toggle('active');
+        });
     }
-});
 
-// Modal event listeners
-closeModal.addEventListener('click', closeModalFunc);
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        closeModalFunc();
+    // Close mobile menu when clicking on a link
+    if (navLinks) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (hamburger) hamburger.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('active');
+            });
+        });
     }
-});
 
-// Close modal with Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-        closeModalFunc();
+    // Smooth scrolling for navigation links
+    if (navLinks) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Update active link
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
     }
-});
+
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener('input', searchVideos);
+    }
+    
+    if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', clearSearch);
+    }
+
+    // Age calculator event listeners
+    if (calculateAgeBtn) {
+        calculateAgeBtn.addEventListener('click', calculatePlanetaryAges);
+    }
+
+    // Allow Enter key for age calculation
+    if (ageInput) {
+        ageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                calculatePlanetaryAges();
+            }
+        });
+    }
+
+    // Modal event listeners
+    if (closeModal) {
+        closeModal.addEventListener('click', closeModalFunc);
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalFunc();
+            }
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+            closeModalFunc();
+        }
+    });
+}
 
 // Intersection Observer for smooth animations
 const observerOptions = {
@@ -392,16 +441,17 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all sections and planet items for animation
-document.querySelectorAll('section, .planet-item').forEach(element => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(30px)';
-    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(element);
-});
-
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing...');
+    
+    // Initialize DOM elements
+    initializeElements();
+    
+    // Setup event listeners
+    setupEventListeners();
+    
+    // Initialize videos
     renderVideos();
     
     // Set active navigation based on scroll position
@@ -415,14 +465,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const sectionId = section.getAttribute('id');
             
             if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+                if (navLinks) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
             }
         });
+    });
+    
+    // Observe all sections and planet items for animation
+    document.querySelectorAll('section, .planet-item').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(element);
     });
     
     // Show welcome message
@@ -433,4 +493,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-planet]').forEach(el => {
         console.log('Found planet element:', el.getAttribute('data-planet'));
     });
+    
+    console.log('Initialization complete!');
 }); 
