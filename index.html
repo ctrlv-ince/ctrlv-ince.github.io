@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Video Collection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>My Video Showcase</h1>
+        <p>Display and organize your favorite YouTube videos</p>
+    </header>
+
+    <main>
+        <section class="video-upload">
+            <div class="upload-container">
+                <h2>Add a YouTube Video</h2>
+                <div class="input-group">
+                    <input type="text" id="youtube-link" placeholder="Paste YouTube video link here..." required>
+                    <button id="add-video-btn"><i class="fas fa-plus"></i> Add Video</button>
+                </div>
+                <p class="instructions">Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ</p>
+            </div>
+        </section>
+
+        <section class="video-gallery">
+            <h2>Your Video Collection</h2>
+            <div class="filter-controls">
+                <input type="text" id="search-videos" placeholder="Search videos...">
+                <button id="clear-search"><i class="fas fa-times"></i> Clear</button>
+            </div>
+            <div id="video-container" class="video-grid">
+                <!-- Videos will be added here dynamically -->
+                <div class="no-videos">
+                    <i class="fas fa-video-slash"></i>
+                    <p>No videos added yet. Add your first video above!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 My Video Showcase | All videos belong to their respective owners</p>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <iframe id="modal-video" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
