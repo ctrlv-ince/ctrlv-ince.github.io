@@ -34,13 +34,13 @@ const sampleVideos = [
     {
         week: 'Week 1 - Concept Design',
         reference: 'dQw4w9WgXcQ', // Rick Roll - commonly used for testing
-        rotoscope: 'jNQXAC9IVRw', // Me at the zoo - first YouTube video
+        rotoscope: 'k8QOyRNnO8Y', // Me at the zoo - first YouTube video
         addedAt: new Date('2024-01-15').toISOString()
     },
     {
         week: 'Week 2 - 3D Modeling',
         reference: 'kJQP7kiw5Fk', // Despacito - popular video
-        rotoscope: '9bZkp7q19f0', // PSY - GANGNAM STYLE
+        rotoscope: '0tX4Nc6j_gs', // PSY - GANGNAM STYLE
         addedAt: new Date('2024-01-22').toISOString()
     },
     {
