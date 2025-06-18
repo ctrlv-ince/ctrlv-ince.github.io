@@ -71,51 +71,271 @@
         <!-- Planets List Section -->
         <section id="planets" class="planets-section">
             <div class="container">
-                <h2>Planets List</h2>
-                <div class="planets-content">
-                    <div class="planets-text">
-                        <div class="planets-info">
-                            <h3>Solar System Exploration</h3>
-                            <p>This project explores the fascinating worlds of our solar system through 3D animation. Each planet has unique characteristics that affect how time passes differently than on Earth.</p>
-                            
-                            <div class="age-calculator">
-                                <h4>Planetary Age Calculator</h4>
-                                <p>Enter your age on any planet to see how old you would be on other planets!</p>
-                                
-                                <div class="calculator-form">
-                                    <div class="input-group">
-                                        <label for="age-input">Your Age:</label>
-                                        <input type="number" id="age-input" placeholder="Enter your age" min="0" max="150">
+                <h2>Solar System Exploration</h2>
+                
+                <!-- Age Calculator -->
+                <div class="age-calculator">
+                    <h3>Planetary Age Calculator</h3>
+                    <p>Enter your age to see how old you would be on each planet and learn about them!</p>
+                    
+                    <div class="calculator-form">
+                        <div class="input-group">
+                            <label for="age-input">Your Age (Earth years):</label>
+                            <input type="number" id="age-input" placeholder="Enter your age" min="0" max="150">
+                        </div>
+                        <button id="calculate-age-btn">Calculate Planetary Ages</button>
+                    </div>
+                </div>
+
+                <!-- Planets List -->
+                <div class="planets-list">
+                    <!-- Sun -->
+                    <div class="planet-item right">
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>☀️ The Sun</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">Our star at the center of the solar system, providing light and energy to all planets.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Type:</strong> <span class="fact-value">Yellow Dwarf Star</span></p>
+                                        <p><strong>Diameter:</strong> <span class="fact-value">1,392,700 km</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">5,500°C</span></p>
+                                        <p><strong>Age:</strong> <span class="fact-value">4.6 billion years</span></p>
                                     </div>
-                                    <div class="input-group">
-                                        <label for="planet-select">On Planet:</label>
-                                        <select id="planet-select">
-                                            <option value="earth">Earth</option>
-                                            <option value="mercury">Mercury</option>
-                                            <option value="venus">Venus</option>
-                                            <option value="mars">Mars</option>
-                                            <option value="jupiter">Jupiter</option>
-                                            <option value="saturn">Saturn</option>
-                                            <option value="uranus">Uranus</option>
-                                            <option value="neptune">Neptune</option>
-                                        </select>
-                                    </div>
-                                    <button id="calculate-age-btn">Calculate Ages</button>
                                 </div>
-                                
-                                <div id="age-results" class="age-results">
-                                    <!-- Results will be displayed here -->
+                            </div>
+                        </div>
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-sun"></i>
+                                <p>Sun Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mercury -->
+                    <div class="planet-item left">
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Mercury Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>☿ Mercury</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">The smallest and innermost planet, closest to the Sun with extreme temperature variations.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">57.9 million km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">88 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-180°C to 430°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="mercury">-</span></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="planets-animation">
-                        <div class="animation-placeholder">
-                            <i class="fas fa-cube"></i>
-                            <h3>Blender Animation</h3>
-                            <p>Your 3D planetary animation will be displayed here</p>
-                            <small>Add your Blender animation file or embed code</small>
+
+                    <!-- Venus -->
+                    <div class="planet-item right">
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>♀ Venus</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">The hottest planet with a thick atmosphere of carbon dioxide and sulfuric acid clouds.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">108.2 million km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">225 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">462°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="venus">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Venus Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earth -->
+                    <div class="planet-item left">
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-globe"></i>
+                                <p>Earth Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>🌍 Earth</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">Our home planet, the only known world with life, featuring diverse ecosystems and liquid water.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">149.6 million km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">365.25 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-88°C to 58°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="earth">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mars -->
+                    <div class="planet-item right">
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>♂ Mars</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">The Red Planet with the largest volcano and canyon in the solar system.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">227.9 million km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">687 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-140°C to 20°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="mars">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Mars Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jupiter -->
+                    <div class="planet-item left">
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Jupiter Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>♃ Jupiter</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">The largest planet with a Great Red Spot storm that has raged for over 300 years.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">778.5 million km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">4,333 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-110°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="jupiter">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Saturn -->
+                    <div class="planet-item right">
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>♄ Saturn</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">Famous for its spectacular ring system made of ice, rock, and dust particles.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">1.4 billion km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">10,759 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-140°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="saturn">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Saturn Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Uranus -->
+                    <div class="planet-item left">
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Uranus Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>♅ Uranus</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">The ice giant that rotates on its side, with rings and 27 known moons.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">2.9 billion km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">30,687 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-195°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="uranus">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Neptune -->
+                    <div class="planet-item right">
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>♆ Neptune</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">The windiest planet with supersonic storms reaching 2,100 km/h.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">4.5 billion km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">60,190 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-200°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="neptune">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Neptune Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pluto -->
+                    <div class="planet-item left">
+                        <div class="planet-animation">
+                            <div class="animation-placeholder">
+                                <i class="fas fa-circle"></i>
+                                <p>Pluto Animation</p>
+                                <small>Your Blender animation here</small>
+                            </div>
+                        </div>
+                        <div class="planet-content">
+                            <div class="planet-info">
+                                <h3>♇ Pluto</h3>
+                                <div class="planet-details">
+                                    <p class="planet-description">A dwarf planet with a heart-shaped glacier and complex orbit around the Sun.</p>
+                                    <div class="planet-facts">
+                                        <p><strong>Distance from Sun:</strong> <span class="fact-value">5.9 billion km</span></p>
+                                        <p><strong>Year Length:</strong> <span class="fact-value">90,560 Earth days</span></p>
+                                        <p><strong>Surface Temperature:</strong> <span class="fact-value">-230°C</span></p>
+                                        <p><strong>Your Age Here:</strong> <span class="age-value" data-planet="pluto">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

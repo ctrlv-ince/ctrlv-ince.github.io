@@ -13,9 +13,7 @@ const closeModal = document.querySelector('.close-modal');
 
 // Age Calculator Elements
 const ageInput = document.querySelector('#age-input');
-const planetSelect = document.querySelector('#planet-select');
 const calculateAgeBtn = document.querySelector('#calculate-age-btn');
-const ageResults = document.querySelector('#age-results');
 
 // Planetary year lengths in Earth days
 const planetYears = {
@@ -26,7 +24,8 @@ const planetYears = {
     jupiter: 4333,
     saturn: 10759,
     uranus: 30687,
-    neptune: 60190
+    neptune: 60190,
+    pluto: 90560
 };
 
 // Planet emojis and names
@@ -38,7 +37,8 @@ const planetInfo = {
     jupiter: { name: 'Jupiter', emoji: '♃' },
     saturn: { name: 'Saturn', emoji: '♄' },
     uranus: { name: 'Uranus', emoji: '♅' },
-    neptune: { name: 'Neptune', emoji: '♆' }
+    neptune: { name: 'Neptune', emoji: '♆' },
+    pluto: { name: 'Pluto', emoji: '♇' }
 };
 
 // Sample videos for the portfolio
@@ -127,7 +127,6 @@ navLinks.forEach(link => {
 // Age Calculator Functionality
 function calculatePlanetaryAges() {
     const age = parseFloat(ageInput.value);
-    const selectedPlanet = planetSelect.value;
     
     if (!age || age < 0 || age > 150) {
         showNotification('Please enter a valid age between 0 and 150 years!', 'error');
@@ -135,48 +134,45 @@ function calculatePlanetaryAges() {
     }
     
     // Calculate ages for all planets
-    const results = [];
-    const earthDaysInSelectedAge = age * planetYears[selectedPlanet];
-    
     Object.keys(planetYears).forEach(planet => {
-        const planetAge = earthDaysInSelectedAge / planetYears[planet];
-        results.push({
-            planet: planet,
-            age: planetAge.toFixed(2)
-        });
+        const planetAge = (age * planetYears.earth) / planetYears[planet];
+        updatePlanetAge(planet, planetAge.toFixed(2));
     });
     
-    // Display results
-    displayAgeResults(results, selectedPlanet);
+    // Update planet descriptions based on age
+    updatePlanetDescriptions(age);
+    
+    showNotification('Planetary ages calculated! Check each planet for your age.', 'success');
 }
 
-function displayAgeResults(results, selectedPlanet) {
-    const selectedPlanetInfo = planetInfo[selectedPlanet];
+function updatePlanetAge(planet, age) {
+    const ageElement = document.querySelector(`[data-planet="${planet}"]`);
+    if (ageElement) {
+        ageElement.textContent = `${age} years`;
+        ageElement.style.color = '#ff6b6b';
+        ageElement.style.fontWeight = '700';
+    }
+}
+
+function updatePlanetDescriptions(earthAge) {
+    const descriptions = {
+        mercury: `At ${earthAge} Earth years old, you would be ${((earthAge * 365.25) / 88).toFixed(2)} years old on Mercury! The smallest planet experiences extreme temperature swings from -180°C to 430°C.`,
+        venus: `Your ${earthAge} Earth years would be ${((earthAge * 365.25) / 224.7).toFixed(2)} Venus years! This scorching planet has a thick atmosphere of carbon dioxide and sulfuric acid clouds.`,
+        earth: `You are ${earthAge} years old on Earth! Our home planet is the only known world with life, featuring diverse ecosystems and liquid water.`,
+        mars: `On Mars, your ${earthAge} Earth years would be ${((earthAge * 365.25) / 687).toFixed(2)} Martian years! The Red Planet has the largest volcano and canyon in the solar system.`,
+        jupiter: `Your age on Jupiter would be ${((earthAge * 365.25) / 4333).toFixed(2)} years! The largest planet has a Great Red Spot storm that has raged for over 300 years.`,
+        saturn: `At ${((earthAge * 365.25) / 10759).toFixed(2)} Saturn years old, you'd experience its spectacular ring system made of ice, rock, and dust particles.`,
+        uranus: `Your ${earthAge} Earth years equals ${((earthAge * 365.25) / 30687).toFixed(2)} Uranus years! This ice giant rotates on its side with rings and 27 known moons.`,
+        neptune: `On Neptune, you'd be ${((earthAge * 365.25) / 60190).toFixed(2)} years old! The windiest planet has supersonic storms reaching 2,100 km/h.`,
+        pluto: `Your age on Pluto would be ${((earthAge * 365.25) / 90560).toFixed(2)} years! This dwarf planet has a heart-shaped glacier and complex orbit around the Sun.`
+    };
     
-    let html = `
-        <h4>If you are ${ageInput.value} years old on ${selectedPlanetInfo.name} ${selectedPlanetInfo.emoji}:</h4>
-    `;
-    
-    results.forEach(result => {
-        const planetInfo = planetInfo[result.planet];
-        const isSelected = result.planet === selectedPlanet;
-        
-        html += `
-            <div class="age-result-item ${isSelected ? 'selected' : ''}">
-                <span class="planet-name">
-                    ${planetInfo.emoji} ${planetInfo.name}
-                    ${isSelected ? ' (Your input)' : ''}
-                </span>
-                <span class="planet-age">${result.age} years</span>
-            </div>
-        `;
+    Object.keys(descriptions).forEach(planet => {
+        const descriptionElement = document.querySelector(`[data-planet="${planet}"]`).closest('.planet-item').querySelector('.planet-description');
+        if (descriptionElement) {
+            descriptionElement.textContent = descriptions[planet];
+        }
     });
-    
-    ageResults.innerHTML = html;
-    ageResults.classList.add('show');
-    
-    // Scroll to results
-    ageResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // YouTube Video Management
@@ -336,13 +332,6 @@ style.textContent = `
             opacity: 0;
         }
     }
-    
-    .age-result-item.selected {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        padding: 0.8rem;
-        margin: 0.2rem 0;
-    }
 `;
 document.head.appendChild(style);
 
@@ -354,12 +343,10 @@ clearSearchBtn.addEventListener('click', clearSearch);
 calculateAgeBtn.addEventListener('click', calculatePlanetaryAges);
 
 // Allow Enter key for age calculation
-[ageInput, planetSelect].forEach(input => {
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            calculatePlanetaryAges();
-        }
-    });
+ageInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        calculatePlanetaryAges();
+    }
 });
 
 // Modal event listeners
@@ -388,16 +375,17 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('animate');
         }
     });
 }, observerOptions);
 
-// Observe all sections for animation
-document.querySelectorAll('section').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(30px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(section);
+// Observe all sections and planet items for animation
+document.querySelectorAll('section, .planet-item').forEach(element => {
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(30px)';
+    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(element);
 });
 
 // Initialize the page
