@@ -191,10 +191,9 @@ section h2 {
 
 /* Video Grid */
 .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 2rem auto 0;
 }
 
 .video-card {
@@ -204,6 +203,8 @@ section h2 {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     cursor: pointer;
+    max-width: 320px;
+    width: 100%;
 }
 
 .video-card:hover {
