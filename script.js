@@ -32,33 +32,39 @@ const planetInfo = {
 // Sample videos for the portfolio
 const sampleVideos = [
     {
-        week: 'Week 1 - Concept Design',
+        week: 'Week 1',
         reference: 'dQw4w9WgXcQ', // Rick Roll - commonly used for testing
         rotoscope: 'k8QOyRNnO8Y', // Me at the zoo - first YouTube video
         addedAt: new Date('2024-01-15').toISOString()
     },
     {
-        week: 'Week 2 - 3D Modeling',
+        week: 'Week 2',
         reference: 'kJQP7kiw5Fk', // Despacito - popular video
         rotoscope: '0tX4Nc6j_gs', // PSY - GANGNAM STYLE
         addedAt: new Date('2024-01-22').toISOString()
     },
     {
-        week: 'Week 3 - Texturing',
+        week: 'Week 3',
         reference: 'ZZ5LpwO-An4', // Uptown Funk
-        rotoscope: 'y6120QOlsfU', // Sandstorm
+        rotoscope: 'rxDXzbEhjlo', // Sandstorm
         addedAt: new Date('2024-01-29').toISOString()
     },
     {
-        week: 'Week 4 - Animation',
+        week: 'Week 4',
         reference: 'hT_nvWreIhg', // OneRepublic - Counting Stars
-        rotoscope: 'fJ9rUzIMcZQ', // Bohemian Rhapsody
+        rotoscope: '49NTM4ypn4Y', // Bohemian Rhapsody
         addedAt: new Date('2024-02-05').toISOString()
     },
     {
-        week: 'Week 5 - Lighting',
+        week: 'Week 5',
         reference: 'YykjpeuMNEk', // Hymn for the Weekend
-        rotoscope: '09R8_2nJtjg', // Maroon 5 - Sugar
+        rotoscope: 'rZHQIoNKFVQ', // Maroon 5 - Sugar
+        addedAt: new Date('2024-02-12').toISOString()
+    },
+    {
+        week: 'Week 6',
+        reference: 'YykjpeuMNEk', // Hymn for the Weekend
+        rotoscope: 'o1m5Fw0tD9g', // Maroon 5 - Sugar
         addedAt: new Date('2024-02-12').toISOString()
     }
     // Add more weeks as needed
