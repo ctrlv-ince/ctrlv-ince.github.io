@@ -133,6 +133,8 @@ function calculatePlanetaryAges() {
         return;
     }
     
+    console.log('Calculating ages for:', age, 'years'); // Debug log
+    
     // Calculate ages for all planets
     Object.keys(planetYears).forEach(planet => {
         const planetAge = (age * planetYears.earth) / planetYears[planet];
@@ -147,10 +149,15 @@ function calculatePlanetaryAges() {
 
 function updatePlanetAge(planet, age) {
     const ageElement = document.querySelector(`[data-planet="${planet}"]`);
+    console.log('Looking for planet:', planet, 'Found element:', ageElement); // Debug log
+    
     if (ageElement) {
         ageElement.textContent = `${age} years`;
         ageElement.style.color = '#ff6b6b';
         ageElement.style.fontWeight = '700';
+        console.log('Updated age for', planet, 'to', age); // Debug log
+    } else {
+        console.log('Could not find age element for planet:', planet); // Debug log
     }
 }
 
@@ -168,9 +175,14 @@ function updatePlanetDescriptions(earthAge) {
     };
     
     Object.keys(descriptions).forEach(planet => {
-        const descriptionElement = document.querySelector(`[data-planet="${planet}"]`).closest('.planet-item').querySelector('.planet-description');
-        if (descriptionElement) {
-            descriptionElement.textContent = descriptions[planet];
+        const ageElement = document.querySelector(`[data-planet="${planet}"]`);
+        if (ageElement) {
+            const planetItem = ageElement.closest('.planet-item');
+            const descriptionElement = planetItem.querySelector('.planet-description');
+            if (descriptionElement) {
+                descriptionElement.textContent = descriptions[planet];
+                console.log('Updated description for', planet); // Debug log
+            }
         }
     });
 }
@@ -415,4 +427,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Show welcome message
     showNotification('Welcome to the Animation Portfolio! 🎬', 'success');
+    
+    // Debug: Check if age elements exist
+    console.log('Age elements found:', document.querySelectorAll('[data-planet]').length);
+    document.querySelectorAll('[data-planet]').forEach(el => {
+        console.log('Found planet element:', el.getAttribute('data-planet'));
+    });
 }); 
