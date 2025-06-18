@@ -76,7 +76,7 @@ const sampleVideos = [
 ];
 
 // Video storage - initialize with sample videos
-let videos = JSON.parse(localStorage.getItem('animationVideos')) || sampleVideos;
+let videos = sampleVideos; // Always use sample videos, don't load from localStorage
 
 // Initialize DOM elements
 function initializeElements() {
@@ -171,12 +171,14 @@ function createVideoCard(video) {
     
     videoCard.innerHTML = `
         <div class="video-label">${video.week}</div>
-        <iframe 
-            class="video-iframe" 
-            src="https://www.youtube.com/embed/${video.videoId}" 
-            frameborder="0" 
-            allowfullscreen>
-        </iframe>
+        <div class="video-iframe-wrapper">
+            <iframe 
+                class="video-iframe" 
+                src="https://www.youtube.com/embed/${video.videoId}" 
+                frameborder="0" 
+                allowfullscreen>
+            </iframe>
+        </div>
     `;
     
     // Add click event to open in modal
@@ -185,10 +187,6 @@ function createVideoCard(video) {
     });
     
     return videoCard;
-}
-
-function saveVideos() {
-    localStorage.setItem('animationVideos', JSON.stringify(videos));
 }
 
 function renderVideos(filteredVideos = null) {
@@ -428,6 +426,9 @@ const observer = new IntersectionObserver((entries) => {
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing...');
+    
+    // Clear any existing localStorage data to reset videos
+    localStorage.removeItem('animationVideos');
     
     // Initialize DOM elements
     initializeElements();
