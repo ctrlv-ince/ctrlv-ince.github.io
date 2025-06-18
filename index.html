@@ -3,48 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Video Collection</title>
+    <title>Animation Project Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>My Video Showcase</h1>
-        <p>Display and organize your favorite YouTube videos</p>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Animation Portfolio</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#planets" class="nav-link">Planets List</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tools" class="nav-link">Tools Used</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <section class="video-upload">
-            <div class="upload-container">
-                <h2>Add a YouTube Video</h2>
-                <div class="input-group">
-                    <input type="text" id="youtube-link" placeholder="Paste YouTube video link here..." required>
-                    <button id="add-video-btn"><i class="fas fa-plus"></i> Add Video</button>
+        <!-- Featured Animation Section -->
+        <section id="home" class="featured-video">
+            <div class="container">
+                <h2>Featured Animation</h2>
+                <div class="video-wrapper">
+                    <video id="featured-video" controls>
+                        <source src="your-animation.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-placeholder">
+                        <i class="fas fa-video"></i>
+                        <p>Your Blender Animation Video</p>
+                        <small>Replace 'your-animation.mp4' with your actual video file</small>
+                    </div>
                 </div>
-                <p class="instructions">Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ</p>
             </div>
         </section>
 
-        <section class="video-gallery">
-            <h2>Your Video Collection</h2>
-            <div class="filter-controls">
-                <input type="text" id="search-videos" placeholder="Search videos...">
-                <button id="clear-search"><i class="fas fa-times"></i> Clear</button>
+        <!-- YouTube Videos Section -->
+        <section class="youtube-videos">
+            <div class="container">
+                <h2>Project Videos</h2>
+                <div class="search-controls">
+                    <input type="text" id="search-videos" placeholder="Search videos...">
+                    <button id="clear-search">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+                
+                <div id="video-container" class="video-grid">
+                    <!-- Videos will be added here via JavaScript -->
+                </div>
             </div>
-            <div id="video-container" class="video-grid">
-                <!-- Videos will be added here dynamically -->
-                <div class="no-videos">
-                    <i class="fas fa-video-slash"></i>
-                    <p>No videos added yet. Add your first video above!</p>
+        </section>
+
+        <!-- Planets List Section -->
+        <section id="planets" class="planets-section">
+            <div class="container">
+                <h2>Planets List</h2>
+                <div class="planets-content">
+                    <div class="planets-text">
+                        <div class="planets-info">
+                            <h3>Solar System Exploration</h3>
+                            <p>This project explores the fascinating worlds of our solar system through 3D animation. Each planet has unique characteristics that affect how time passes differently than on Earth.</p>
+                            
+                            <div class="age-calculator">
+                                <h4>Planetary Age Calculator</h4>
+                                <p>Enter your age on any planet to see how old you would be on other planets!</p>
+                                
+                                <div class="calculator-form">
+                                    <div class="input-group">
+                                        <label for="age-input">Your Age:</label>
+                                        <input type="number" id="age-input" placeholder="Enter your age" min="0" max="150">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="planet-select">On Planet:</label>
+                                        <select id="planet-select">
+                                            <option value="earth">Earth</option>
+                                            <option value="mercury">Mercury</option>
+                                            <option value="venus">Venus</option>
+                                            <option value="mars">Mars</option>
+                                            <option value="jupiter">Jupiter</option>
+                                            <option value="saturn">Saturn</option>
+                                            <option value="uranus">Uranus</option>
+                                            <option value="neptune">Neptune</option>
+                                        </select>
+                                    </div>
+                                    <button id="calculate-age-btn">Calculate Ages</button>
+                                </div>
+                                
+                                <div id="age-results" class="age-results">
+                                    <!-- Results will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="planets-animation">
+                        <div class="animation-placeholder">
+                            <i class="fas fa-cube"></i>
+                            <h3>Blender Animation</h3>
+                            <p>Your 3D planetary animation will be displayed here</p>
+                            <small>Add your Blender animation file or embed code</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Used Section -->
+        <section id="tools" class="tools-section">
+            <div class="container">
+                <h2>Tools Used</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h3>Blender</h3>
+                        <p>3D modeling and animation software</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Material Design</h3>
+                        <p>Creating realistic textures and materials</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Lighting</h3>
+                        <p>Advanced lighting techniques for atmosphere</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Camera Work</h3>
+                        <p>Cinematic camera movements and angles</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>© 2023 My Video Showcase | All videos belong to their respective owners</p>
+        <div class="container">
+            <p>&copy; 2024 Animation Portfolio | All videos belong to their respective owners</p>
+        </div>
     </footer>
 
+    <!-- Video Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
