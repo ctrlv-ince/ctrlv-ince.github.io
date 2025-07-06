@@ -558,6 +558,43 @@ footer {
     margin-top: 4rem;
 }
 
+.footer-disclaimer {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-disclaimer p {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.footer-disclaimer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-disclaimer li {
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.footer-disclaimer li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #667eea;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hamburger {
