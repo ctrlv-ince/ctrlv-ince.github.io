@@ -121,6 +121,8 @@ section h2 {
     width: 100%;
     max-width: 800px;
     border-radius: 15px;
+    max-height: 500px;
+    object-fit: cover;
 }
 
 .video-placeholder {
@@ -711,4 +713,41 @@ footer {
     .week-label {
         font-size: 1.1rem;
     }
+    .planet-animation {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .planet-animation {
+        height: 200px;
+    }
+    #featured-video {
+        max-height: 300px;
+    }
+}
+
+/* Planet Animation Videos */
+.planet-animation {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.planet-animation video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Featured Video sizing */
+#featured-video {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 15px;
+    max-height: 500px;
+    object-fit: cover;
 } 
