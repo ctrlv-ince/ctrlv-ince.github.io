@@ -1,5 +1,5 @@
 // DOM Elements
-let hamburger, navMenu, navLinks, searchInput, clearSearchBtn, videoContainer;
+let hamburger, navMenu, navLinks, videoContainer;
 let modal, modalVideo, modalTitle, modalDescription, closeModal;
 let ageInput, calculateAgeBtn;
 
@@ -57,8 +57,6 @@ function initializeElements() {
     hamburger = document.querySelector('.hamburger');
     navMenu = document.querySelector('.nav-menu');
     navLinks = document.querySelectorAll('.nav-link');
-    searchInput = document.querySelector('#search-videos');
-    clearSearchBtn = document.querySelector('#clear-search');
     videoContainer = document.querySelector('#video-container');
     modal = document.querySelector('#modal');
     modalVideo = document.querySelector('#modal-video');
@@ -268,32 +266,6 @@ function renderVideos(filteredVideos = null) {
     videoContainer.appendChild(finalRow);
 }
 
-// Search functionality
-function searchVideos() {
-    if (!searchInput) return;
-    
-    const searchTerm = searchInput.value.toLowerCase();
-    
-    if (searchTerm === '') {
-        renderVideos();
-        return;
-    }
-    
-    const filteredVideos = videos.filter(video => 
-        video.week.toLowerCase().includes(searchTerm)
-    );
-    
-    renderVideos(filteredVideos);
-}
-
-// Clear search
-function clearSearch() {
-    if (searchInput) {
-        searchInput.value = '';
-        renderVideos();
-    }
-}
-
 // Modal functionality
 function openModal(video) {
     if (!modal || !modalVideo || !modalTitle || !modalDescription) {
@@ -416,15 +388,6 @@ function setupEventListeners() {
                 link.classList.add('active');
             });
         });
-    }
-
-    // Search functionality
-    if (searchInput) {
-        searchInput.addEventListener('input', searchVideos);
-    }
-    
-    if (clearSearchBtn) {
-        clearSearchBtn.addEventListener('click', clearSearch);
     }
 
     // Age calculator event listeners
