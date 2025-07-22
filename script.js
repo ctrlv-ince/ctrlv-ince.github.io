@@ -190,41 +190,53 @@ function renderVideos(filteredVideos = null) {
 
     videoContainer.innerHTML = ''; // Clear previous videos
 
-    // Render each week's row
-    videosToRender.forEach(weekObj => {
+    // Render pairs of weekly rotoscope videos
+    for (let i = 0; i < videosToRender.length; i += 2) {
+        const week1 = videosToRender[i];
+        const week2 = videosToRender[i + 1]; // This might be undefined if there's an odd number
+
         const row = document.createElement('div');
         row.className = 'video-week-row';
 
-        row.innerHTML = `
-            <div class="week-label">${weekObj.week}</div>
-            
-            <!-- Reference Column -->
-            <div class="video-col">
-                <div class="video-type-label">Reference</div>
-                <div class="video-iframe-wrapper">
-                    <iframe class="video-iframe" src="https://www.youtube.com/embed/${REFERENCE_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <!-- Rotoscope Column -->
-            <div class="video-col">
-                <div class="video-type-label">Rotoscope</div>
-                <div class="video-iframe-wrapper">
-                    <iframe class="video-iframe" src="https://www.youtube.com/embed/${weekObj.rotoscope}" frameborder="0" allowfullscreen></iframe>
-                </div>
+        // --- Column 1 (Week i) ---
+        const col1 = document.createElement('div');
+        col1.className = 'video-col';
+        col1.innerHTML = `
+            <div class="week-label">${week1.week}</div> 
+            <div class="video-type-label">Rotoscope</div>
+            <div class="video-iframe-wrapper">
+                <iframe class="video-iframe" src="https://www.youtube.com/embed/${week1.rotoscope}" frameborder="0" allowfullscreen></iframe>
             </div>
         `;
+        col1.addEventListener('click', () => openModal({ videoId: week1.rotoscope, week: `${week1.week} (Rotoscope)`, addedAt: week1.addedAt }));
+        row.appendChild(col1);
 
-        // Add click listeners for modals
-        row.children[1].addEventListener('click', () => openModal({ videoId: REFERENCE_VIDEO_ID, week: 'Reference Video', addedAt: weekObj.addedAt }));
-        row.children[2].addEventListener('click', () => openModal({ videoId: weekObj.rotoscope, week: `${weekObj.week} (Rotoscope)`, addedAt: weekObj.addedAt }));
+        // --- Column 2 (Week i + 1) ---
+        if (week2) {
+            const col2 = document.createElement('div');
+            col2.className = 'video-col';
+            col2.innerHTML = `
+                <div class="week-label">${week2.week}</div>
+                <div class="video-type-label">Rotoscope</div>
+                <div class="video-iframe-wrapper">
+                    <iframe class="video-iframe" src="https://www.youtube.com/embed/${week2.rotoscope}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            `;
+            col2.addEventListener('click', () => openModal({ videoId: week2.rotoscope, week: `${week2.week} (Rotoscope)`, addedAt: week2.addedAt }));
+            row.appendChild(col2);
+        } else {
+            // If there's an odd number of videos, add an empty placeholder column
+            const placeholderCol = document.createElement('div');
+            placeholderCol.className = 'video-col placeholder';
+            row.appendChild(placeholderCol);
+        }
 
         videoContainer.appendChild(row);
-    });
+    }
 
-    // Render the final row
+    // Render the final row (this remains a two-column layout for comparison)
     const finalRow = document.createElement('div');
-    finalRow.className = 'video-week-row final-row';
+    finalRow.className = 'video-week-row final-row'; // No 'single-col-row' here
     finalRow.innerHTML = `
         <div class="week-label">Final Video</div>
         
