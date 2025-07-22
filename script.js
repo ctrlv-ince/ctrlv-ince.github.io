@@ -164,7 +164,7 @@ function createWeekRow(weekObj) {
     const rotoCol = document.createElement('div');
     rotoCol.className = 'video-col';
     rotoCol.innerHTML = `
-        <div class="video-type-label">Rotoscope</div>
+        <div class="video-type-label"></div>
         <div class="video-iframe-wrapper">
             <iframe class="video-iframe" src="https://www.youtube.com/embed/${weekObj.rotoscope}" frameborder="0" allowfullscreen></iframe>
         </div>
@@ -203,7 +203,7 @@ function renderVideos(filteredVideos = null) {
         col1.className = 'video-col';
         col1.innerHTML = `
             <div class="week-label">${week1.week}</div> 
-            <div class="video-type-label">Rotoscope</div>
+            <div class="video-type-label"></div>
             <div class="video-iframe-wrapper">
                 <iframe class="video-iframe" src="https://www.youtube.com/embed/${week1.rotoscope}" frameborder="0" allowfullscreen></iframe>
             </div>
@@ -217,7 +217,7 @@ function renderVideos(filteredVideos = null) {
             col2.className = 'video-col';
             col2.innerHTML = `
                 <div class="week-label">${week2.week}</div>
-                <div class="video-type-label">Rotoscope</div>
+                <div class="video-type-label"></div>
                 <div class="video-iframe-wrapper">
                     <iframe class="video-iframe" src="https://www.youtube.com/embed/${week2.rotoscope}" frameborder="0" allowfullscreen></iframe>
                 </div>
@@ -237,29 +237,33 @@ function renderVideos(filteredVideos = null) {
     // Render the final row (this remains a two-column layout for comparison)
     const finalRow = document.createElement('div');
     finalRow.className = 'video-week-row final-row'; // No 'single-col-row' here
-    finalRow.innerHTML = `
+    
+    // Final Video Column
+    const finalCol = document.createElement('div');
+    finalCol.className = 'video-col';
+    finalCol.innerHTML = `
         <div class="week-label">Final Video</div>
-        
-        <!-- Final Video Column -->
-        <div class="video-col">
-            <div class="video-type-label">Final Video</div>
-            <div class="video-iframe-wrapper">
-                <iframe class="video-iframe" src="https://www.youtube.com/embed/${FINAL_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-        
-        <!-- Reference Video Column (for comparison) -->
-        <div class="video-col">
-            <div class="video-type-label">Reference</div>
-            <div class="video-iframe-wrapper">
-                <iframe class="video-iframe" src="https://www.youtube.com/embed/${REFERENCE_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
-            </div>
+        <div class="video-type-label"></div>
+        <div class="video-iframe-wrapper">
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/${FINAL_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
         </div>
     `;
+    finalCol.addEventListener('click', () => openModal({ videoId: FINAL_VIDEO_ID, week: 'Final Video', addedAt: new Date().toISOString() }));
+    
+    // Reference Video Column
+    const refCol = document.createElement('div');
+    refCol.className = 'video-col';
+    refCol.innerHTML = `
+        <div class="week-label">Reference</div>
+        <div class="video-type-label"></div>
+        <div class="video-iframe-wrapper">
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/${REFERENCE_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    `;
+    refCol.addEventListener('click', () => openModal({ videoId: REFERENCE_VIDEO_ID, week: 'Reference Video', addedAt: new Date().toISOString() }));
 
-    // Add click listeners for final row modals
-    finalRow.children[1].addEventListener('click', () => openModal({ videoId: FINAL_VIDEO_ID, week: 'Final Video', addedAt: new Date().toISOString() }));
-    finalRow.children[2].addEventListener('click', () => openModal({ videoId: REFERENCE_VIDEO_ID, week: 'Reference Video', addedAt: new Date().toISOString() }));
+    finalRow.appendChild(finalCol);
+    finalRow.appendChild(refCol);
     
     videoContainer.appendChild(finalRow);
 }
