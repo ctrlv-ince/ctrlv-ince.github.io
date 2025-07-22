@@ -3,6 +3,29 @@ let hamburger, navMenu, navLinks, searchInput, clearSearchBtn, videoContainer;
 let modal, modalVideo, modalTitle, modalDescription, closeModal;
 let ageInput, calculateAgeBtn;
 
+// --- CONFIGURATION ---
+const REFERENCE_VIDEO_ID = 'jO2viLEW-1A';
+const FINAL_VIDEO_ID = 'MMihdC3xiz4'; 
+
+const sampleVideos = [
+    { week: 'Week 1', rotoscope: 'k8QOyRNnO8Y', addedAt: new Date('2024-01-15').toISOString() },
+    { week: 'Week 2', rotoscope: '0tX4Nc6j_gs', addedAt: new Date('2024-01-22').toISOString() },
+    { week: 'Week 3', rotoscope: 'rxDXzbEhjlo', addedAt: new Date('2024-01-29').toISOString() },
+    { week: 'Week 4', rotoscope: '49NTM4ypn4Y', addedAt: new Date('2024-02-05').toISOString() },
+    { week: 'Week 5', rotoscope: 'rZHQIoNKFVQ', addedAt: new Date('2024-02-12').toISOString() },
+    { week: 'Week 6', rotoscope: 'o1m5Fw0tD9g', addedAt: new Date('2024-02-19').toISOString() },
+    { week: 'Week 7.', rotoscope: 'DmzfJ8P_tCA', addedAt: new Date('2024-01-15').toISOString() },
+    { week: 'Week 8', rotoscope: 'dzmZHzGa2Vg', addedAt: new Date('2024-01-22').toISOString() },
+    { week: 'Week 9', rotoscope: 'XFjjBPqbLHE', addedAt: new Date('2024-01-29').toISOString() },
+    { week: 'Week 10', rotoscope: 'lRv4TvLvAi8', addedAt: new Date('2024-02-05').toISOString() },
+    { week: 'Week 11', rotoscope: 'OgswRK8mlCM', addedAt: new Date('2024-02-12').toISOString() },
+    { week: 'Week 12', rotoscope: 'QKPQFT1Dk-M', addedAt: new Date('2024-02-19').toISOString() },
+];
+
+
+// Video storage - initialize with sample videos
+let videos = sampleVideos;
+
 // Planetary year lengths in Earth days
 const planetYears = {
     earth: 365.25,
@@ -28,50 +51,6 @@ const planetInfo = {
     neptune: { name: 'Neptune', emoji: '♆' },
     pluto: { name: 'Pluto', emoji: '♇' }
 };
-
-// Sample videos for the portfolio
-const sampleVideos = [
-    {
-        week: 'Week 1',
-        reference: 'dQw4w9WgXcQ', // Rick Roll - commonly used for testing
-        rotoscope: 'k8QOyRNnO8Y', // Me at the zoo - first YouTube video
-        addedAt: new Date('2024-01-15').toISOString()
-    },
-    {
-        week: 'Week 2',
-        reference: 'kJQP7kiw5Fk', // Despacito - popular video
-        rotoscope: '0tX4Nc6j_gs', // PSY - GANGNAM STYLE
-        addedAt: new Date('2024-01-22').toISOString()
-    },
-    {
-        week: 'Week 3',
-        reference: 'ZZ5LpwO-An4', // Uptown Funk
-        rotoscope: 'rxDXzbEhjlo', // Sandstorm
-        addedAt: new Date('2024-01-29').toISOString()
-    },
-    {
-        week: 'Week 4',
-        reference: 'hT_nvWreIhg', // OneRepublic - Counting Stars
-        rotoscope: '49NTM4ypn4Y', // Bohemian Rhapsody
-        addedAt: new Date('2024-02-05').toISOString()
-    },
-    {
-        week: 'Week 5',
-        reference: 'YykjpeuMNEk', // Hymn for the Weekend
-        rotoscope: 'rZHQIoNKFVQ', // Maroon 5 - Sugar
-        addedAt: new Date('2024-02-12').toISOString()
-    },
-    {
-        week: 'Week 6',
-        reference: 'YykjpeuMNEk', // Hymn for the Weekend
-        rotoscope: 'o1m5Fw0tD9g', // Maroon 5 - Sugar
-        addedAt: new Date('2024-02-12').toISOString()
-    }
-    // Add more weeks as needed
-];
-
-// Video storage - initialize with sample videos
-let videos = sampleVideos;
 
 // Initialize DOM elements
 function initializeElements() {
@@ -205,19 +184,72 @@ function renderVideos(filteredVideos = null) {
     const videosToRender = filteredVideos || videos;
 
     if (videosToRender.length === 0) {
-        videoContainer.innerHTML = `
-            <div class="no-videos">
-                <i class="fas fa-video-slash"></i>
-                <p>No videos available at the moment.</p>
-            </div>
-        `;
+        videoContainer.innerHTML = `<div class="no-videos"><i class="fas fa-video-slash"></i><p>No videos available.</p></div>`;
         return;
     }
 
-    videoContainer.innerHTML = '';
+    videoContainer.innerHTML = ''; // Clear previous videos
+
+    // Render each week's row
     videosToRender.forEach(weekObj => {
-        videoContainer.appendChild(createWeekRow(weekObj));
+        const row = document.createElement('div');
+        row.className = 'video-week-row';
+
+        row.innerHTML = `
+            <div class="week-label">${weekObj.week}</div>
+            
+            <!-- Reference Column -->
+            <div class="video-col">
+                <div class="video-type-label">Reference</div>
+                <div class="video-iframe-wrapper">
+                    <iframe class="video-iframe" src="https://www.youtube.com/embed/${REFERENCE_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Rotoscope Column -->
+            <div class="video-col">
+                <div class="video-type-label">Rotoscope</div>
+                <div class="video-iframe-wrapper">
+                    <iframe class="video-iframe" src="https://www.youtube.com/embed/${weekObj.rotoscope}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        `;
+
+        // Add click listeners for modals
+        row.children[1].addEventListener('click', () => openModal({ videoId: REFERENCE_VIDEO_ID, week: 'Reference Video', addedAt: weekObj.addedAt }));
+        row.children[2].addEventListener('click', () => openModal({ videoId: weekObj.rotoscope, week: `${weekObj.week} (Rotoscope)`, addedAt: weekObj.addedAt }));
+
+        videoContainer.appendChild(row);
     });
+
+    // Render the final row
+    const finalRow = document.createElement('div');
+    finalRow.className = 'video-week-row final-row';
+    finalRow.innerHTML = `
+        <div class="week-label">Final Video</div>
+        
+        <!-- Final Video Column -->
+        <div class="video-col">
+            <div class="video-type-label">Final Video</div>
+            <div class="video-iframe-wrapper">
+                <iframe class="video-iframe" src="https://www.youtube.com/embed/${FINAL_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+        
+        <!-- Reference Video Column (for comparison) -->
+        <div class="video-col">
+            <div class="video-type-label">Reference</div>
+            <div class="video-iframe-wrapper">
+                <iframe class="video-iframe" src="https://www.youtube.com/embed/${REFERENCE_VIDEO_ID}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    `;
+
+    // Add click listeners for final row modals
+    finalRow.children[1].addEventListener('click', () => openModal({ videoId: FINAL_VIDEO_ID, week: 'Final Video', addedAt: new Date().toISOString() }));
+    finalRow.children[2].addEventListener('click', () => openModal({ videoId: REFERENCE_VIDEO_ID, week: 'Reference Video', addedAt: new Date().toISOString() }));
+    
+    videoContainer.appendChild(finalRow);
 }
 
 // Search functionality
