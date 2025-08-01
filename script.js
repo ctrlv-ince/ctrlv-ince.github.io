@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Show welcome message
-    showNotification('Welcome to the Animation Portfolio! 🎬', 'success');
+    showNotification('Welcome to my website! 🎬', 'success');
     
     // Debug: Check if age elements exist
     console.log('Age elements found:', document.querySelectorAll('[data-planet]').length);
